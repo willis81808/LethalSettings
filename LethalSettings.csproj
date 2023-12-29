@@ -1,0 +1,40 @@
+﻿<Project Sdk="LethalCompany.Plugin.Sdk/1.0.0">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    
+    <RootNamespace>LethalSettings</RootNamespace>
+
+    <Title>LethalSettings</Title>
+    <Description>A centralized place for configuring mods from in-game</Description>
+    <PluginId>com.willis.lc.lethalsettings</PluginId>
+    <Version>1.0.0</Version>
+    
+  </PropertyGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="xcopy &quot;C:\Users\Reid Willis\Documents\Unity Projects\Lethal Company Modding Environment\AssetBundles\StandaloneWindows\settings_assets&quot; &quot;%25cd%25&quot; /Y" />
+  </Target>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy &quot;$(TargetDir)\LethalSettings.dll&quot; &quot;C:\Users\Reid Willis\AppData\Roaming\Thunderstore Mod Manager\DataFolder\LethalCompany\profiles\Mod Development\BepInEx\plugins&quot; /Y" />
+  </Target>
+
+</Project>
