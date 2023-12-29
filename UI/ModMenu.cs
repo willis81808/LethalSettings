@@ -48,18 +48,6 @@ public class ModMenu : MonoBehaviour
                     ..mod.MenuComponents
                 ] 
             }.Construct(modSettingsScrollView.gameObject);
-
-            /*
-            mod.Viewport = Instantiate(Assets.VerticalWrapper, modSettingsScrollView);
-            new LabelComponent { Text = "Description" }.Construct(mod.Viewport);
-            new LabelComponent { Text = mod.Description, FontSize = 10 }.Construct(mod.Viewport);
-            new LabelComponent { Text = "Mod ID" }.Construct(mod.Viewport);
-            new LabelComponent { Text = mod.Id, FontSize = 10 }.Construct(mod.Viewport);
-            foreach (var component in mod.MenuComponents)
-            {
-                component.Construct(mod.Viewport);
-            }
-            */
         }
 
         ShowModSettings(registeredMods.First());
