@@ -40,9 +40,6 @@ internal class ToggleComponentObject : MonoBehaviour
     {
         this.component = component;
 
-        label.text = component.Text;
-        label.fontSize = component.FontSize;
-
         button.onClick.AddListener(() =>
         {
             component.Toggled = !component.Toggled;
@@ -52,9 +49,11 @@ internal class ToggleComponentObject : MonoBehaviour
         return gameObject;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         button.interactable = component.Enabled;
+        label.text = component.Text;
+        label.fontSize = component.FontSize;
         toggleImage.SetActive(component.Toggled);
     }
 }

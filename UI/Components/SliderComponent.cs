@@ -40,8 +40,6 @@ internal class SliderComponentObject : MonoBehaviour
         this.component = component;
 
         slider.wholeNumbers = component.WholeNumbers;
-        slider.minValue = component.MinValue;
-        slider.maxValue = component.MaxValue;
         slider.value = component.DefaultValue;
         slider.onValueChanged.AddListener((val) => component.OnValueChange?.Invoke(component, val));
 
@@ -51,6 +49,8 @@ internal class SliderComponentObject : MonoBehaviour
     private void FixedUpdate()
     {
         slider.interactable = component.Enabled;
+        slider.minValue = component.MinValue;
+        slider.maxValue = component.MaxValue;
         label.text = $"{component.Text} {(component.ShowValue ? slider.value : "")}";
     }
 }
