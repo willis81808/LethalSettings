@@ -49,7 +49,7 @@ internal class ToggleComponentObject : MonoBehaviour
         return gameObject;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         button.interactable = component.Enabled;
         label.text = component.Text;
