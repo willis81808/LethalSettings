@@ -18,7 +18,7 @@ public class ModMenu : MonoBehaviour
         public string Name {  get; set; }
         public string Id { get; set; }
         public string Description { get; set; }
-        public MenuComponent[] MenuComponents { get; set; }
+        public MenuComponent[] MenuComponents { get; set; } = [];
 
         internal ButtonComponent ShowSettingsButton { get; set; }
         internal GameObject Viewport { get; set; }
