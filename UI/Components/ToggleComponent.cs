@@ -9,17 +9,33 @@ namespace LethalSettings.UI.Components;
 
 public class ToggleComponent : MenuComponent
 {
-    public string Text { internal get; set; } = "Toggle";
-    public int FontSize { internal get; set; } = 15;
+    public string Text { get; set; } = "Toggle";
+    public int FontSize { get; set; } = 15;
     public bool Enabled { get; set; } = true;
-    public bool DefaultToggled { internal get; set; } = true;
-    internal bool Toggled { get; set; }
+    public bool DefaultToggled { get; set; } = true;
+
+    internal bool _toggled;
+    public bool Toggled
+    {
+        get => _toggled;
+        set
+        {
+            if (componentObject == null)
+            {
+                throw new Exception("Trying to set the value of a ToggleComponent before it has been initialized!");
+            }
+            _toggled = value;
+            componentObject.SetToggled(value);
+        }
+    }
     public Action<ToggleComponent, bool> OnValueChanged { internal get; set; }
+
+    private ToggleComponentObject componentObject;
 
     public override GameObject Construct(GameObject root)
     {
-        Toggled = DefaultToggled;
-        return GameObject.Instantiate(Assets.TogglePrefab, root.transform).Initialize(this);
+        componentObject = GameObject.Instantiate(Assets.TogglePrefab, root.transform);
+        return componentObject.Initialize(this);
     }
 }
 
@@ -40,11 +56,8 @@ internal class ToggleComponentObject : MonoBehaviour
     {
         this.component = component;
 
-        button.onClick.AddListener(() =>
-        {
-            component.Toggled = !component.Toggled;
-            component.OnValueChanged?.Invoke(component, component.Toggled);
-        });
+        component.Toggled = component.DefaultToggled;
+        button.onClick.AddListener(() => SetToggled(!component.Toggled));
 
         return gameObject;
     }
@@ -55,5 +68,11 @@ internal class ToggleComponentObject : MonoBehaviour
         label.text = component.Text;
         label.fontSize = component.FontSize;
         toggleImage.SetActive(component.Toggled);
+    }
+
+    internal void SetToggled(bool toggled)
+    {
+        component._toggled = !component.Toggled;
+        component.OnValueChanged?.Invoke(component, component.Toggled);
     }
 }

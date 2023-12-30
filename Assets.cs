@@ -18,6 +18,8 @@ internal static class Assets
     internal static ButtonComponentObject ButtonPrefab { get; private set; }
     internal static SliderComponentObject SliderPrefab { get; private set; }
     internal static ToggleComponentObject TogglePrefab { get; private set; }
+    internal static DropdownComponentObject DropdownPrefab { get; private set; }
+    internal static InputComponentObject InputPrefab { get; private set; }
 
     internal static void LoadAssets()
     {
@@ -29,6 +31,8 @@ internal static class Assets
         ButtonPrefab = bundle.LoadAsset<GameObject>("Button").GetComponent<ButtonComponentObject>();
         SliderPrefab = bundle.LoadAsset<GameObject>("Slider").GetComponent<SliderComponentObject>();
         TogglePrefab = bundle.LoadAsset<GameObject>("Toggle").GetComponent<ToggleComponentObject>();
+        DropdownPrefab = bundle.LoadAsset<GameObject>("Dropdown").GetComponent<DropdownComponentObject>();
+        InputPrefab = bundle.LoadAsset<GameObject>("Input").GetComponent<InputComponentObject>();
     }
 }
 

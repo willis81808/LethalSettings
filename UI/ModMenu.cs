@@ -26,31 +26,37 @@ public class ModMenu : MonoBehaviour
 
     void Start()
     {
-        foreach (var mod in registeredMods)
+        BuildMod(registeredMods.First());
+        foreach (var mod in registeredMods.Skip(1).OrderBy(m => m.Name))
         {
-            // Create menu button for mod
-            mod.ShowSettingsButton = new ButtonComponent
-            {
-                Text = mod.Name,
-                OnClick = (self) => ShowModSettings(mod)
-            };
-            mod.ShowSettingsButton.Construct(modListScrollView.gameObject);
-
-            // Create mod settings menu contents
-            mod.Viewport = new VerticalComponent
-            {
-                ChildAlignment = TextAnchor.UpperLeft,
-                Children = [
-                    new LabelComponent { Text = "Description" },
-                    new LabelComponent { Text = mod.Description, FontSize = 10 },
-                    new LabelComponent { Text = "Mod ID" },
-                    new LabelComponent { Text = mod.Id, FontSize = 10 },
-                    ..mod.MenuComponents
-                ] 
-            }.Construct(modSettingsScrollView.gameObject);
+            BuildMod(mod);
         }
 
         ShowModSettings(registeredMods.First());
+    }
+
+    private void BuildMod(ModSettingsConfig mod)
+    {
+        // Create menu button for mod
+        mod.ShowSettingsButton = new ButtonComponent
+        {
+            Text = mod.Name,
+            OnClick = (self) => ShowModSettings(mod)
+        };
+        mod.ShowSettingsButton.Construct(modListScrollView.gameObject);
+
+        // Create mod settings menu contents
+        mod.Viewport = new VerticalComponent
+        {
+            ChildAlignment = TextAnchor.UpperLeft,
+            Children = [
+                new LabelComponent { Text = "Description" },
+                new LabelComponent { Text = mod.Description, FontSize = 10 },
+                new LabelComponent { Text = "Mod ID" },
+                new LabelComponent { Text = mod.Id, FontSize = 10 },
+                .. mod.MenuComponents
+            ]
+        }.Construct(modSettingsScrollView.gameObject);
     }
 
     private static void ShowModSettings(ModSettingsConfig activeMod)

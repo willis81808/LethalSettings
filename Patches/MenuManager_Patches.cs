@@ -13,6 +13,7 @@ internal class MenuManager_Patches
     static void Start_Postfix(MenuManager __instance)
     {
         var settingsContainer = __instance.transform.parent.Find("MenuContainer/SettingsPanel");
-        GameObject.Instantiate(Assets.ModSettingsView, settingsContainer);
+        var menu = GameObject.Instantiate(Assets.ModSettingsView, settingsContainer);
+        menu.transform.SetSiblingIndex(menu.transform.GetSiblingIndex() - 2);
     }
 }
