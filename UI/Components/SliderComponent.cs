@@ -22,14 +22,21 @@ public class SliderComponent : MenuComponent
         get => _currentValue;
         set
         {
-            _currentValue = value;
             if (componentObject != null)
             {
                 componentObject.SetValue(value);
             }
+            else
+            {
+                _currentValue = value;
+            }
         }
     }
     public Action<SliderComponent, float> OnValueChanged { internal get; set; } = (self, value) => { };
+
+    /// <summary>
+    /// This callback is executed once the settings menu is initialized and your menu component has been instantiated into the scene.
+    /// </summary>
     public Action<SliderComponent> OnInitialize { get; set; } = (self) => { };
 
     private SliderComponentObject componentObject;
@@ -55,6 +62,13 @@ internal class SliderComponentObject : MonoBehaviour
     {
         this.component = component;
 
+        slider.wholeNumbers = component.WholeNumbers;
+        slider.interactable = component.Enabled;
+        var value = component._currentValue;
+        slider.minValue = component.MinValue;
+        slider.maxValue = component.MaxValue;
+        slider.value = component._currentValue;
+
         slider.onValueChanged.AddListener(SetValue);
 
         component.OnInitialize?.Invoke(component);
@@ -68,6 +82,7 @@ internal class SliderComponentObject : MonoBehaviour
         slider.interactable = component.Enabled;
         slider.minValue = component.MinValue;
         slider.maxValue = component.MaxValue;
+        slider.value = component._currentValue;
         label.text = $"{component.Text} {(component.ShowValue ? slider.value : "")}";
     }
 

@@ -11,6 +11,10 @@ public class LabelComponent : MenuComponent
     public string Text { internal get; set; } = "Label Text";
     public float FontSize { internal get; set; } = 16;
     public TextAlignmentOptions Alignment { internal get; set; } = TextAlignmentOptions.MidlineLeft;
+
+    /// <summary>
+    /// This callback is executed once the settings menu is initialized and your menu component has been instantiated into the scene.
+    /// </summary>
     public Action<LabelComponent> OnInitialize { get; set; } = (self) => { };
 
     public override GameObject Construct(GameObject root)

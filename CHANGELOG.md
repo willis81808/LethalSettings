@@ -1,3 +1,12 @@
+# 1.2.1
+- Corrected a defect in `SliderComponent` that caused the incorrect initial value to be displayed due to an execution order issue with the initial and max value properties
+
+# 1.2.0 **BREAKING**
+- Layout should be much more stable and predictable now
+- Standardized the built-in menu component callback naming convention to `OnValueChanged`
+- Changed all built-in menu components that previously had separate `CurrentValue` and `Value` properties into a single `Value` property that supports dynamic updates as well as setting the initial value
+
+
 # 1.1.0
 
 - Added `InputComponent` for arbitrary text input

@@ -19,14 +19,21 @@ public class ToggleComponent : MenuComponent
         get => _toggled;
         set
         {
-            _toggled = value;
             if (componentObject != null)
             {
                 componentObject.SetToggled(value);
             }
+            else
+            {
+                _toggled = value;
+            }
         }
     }
     public Action<ToggleComponent, bool> OnValueChanged { internal get; set; } = (self, value) => { };
+
+    /// <summary>
+    /// This callback is executed once the settings menu is initialized and your menu component has been instantiated into the scene.
+    /// </summary>
     public Action<ToggleComponent> OnInitialize { get; set; } = (self) => { };
 
 

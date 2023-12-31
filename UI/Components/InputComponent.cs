@@ -10,21 +10,31 @@ public class InputComponent : MenuComponent
 {
     public string Placeholder { get; set; } = "Enter text...";
     public Action<InputComponent, string> OnValueChanged { get; set; } = (self, value) => { };
+    
+    /// <summary>
+    /// This callback is executed once the settings menu is initialized and your menu component has been instantiated into the scene.
+    /// </summary>
     public Action<InputComponent> OnInitialize { get; set; } = (self) => { };
 
-    internal string _currentValue = "";
+    /// <summary>
+    /// Sets the current (or initial) text populating the input field.
+    /// </summary>
     public string Value
     {
         get => _currentValue;
         set
         {
-            _currentValue = value;
             if (componentObject != null)
             {
                 componentObject.SetValue(value);
             }
+            else
+            {
+                _currentValue = value;
+            }
         }
     }
+    internal string _currentValue = "";
 
     private InputComponentObject componentObject;
 

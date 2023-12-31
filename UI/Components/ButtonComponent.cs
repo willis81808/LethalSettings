@@ -14,6 +14,10 @@ public class ButtonComponent : MenuComponent
     public bool ShowCaret { internal get; set; } = true;
     public bool Enabled { get; set; } = true;
     public Action<ButtonComponent> OnClick { internal get; set; } = (self) => { };
+
+    /// <summary>
+    /// This callback is executed once the settings menu is initialized and your menu component has been instantiated into the scene.
+    /// </summary>
     public Action<ButtonComponent> OnInitialize { get; set; } = (self) => { };
 
     public override GameObject Construct(GameObject root)
