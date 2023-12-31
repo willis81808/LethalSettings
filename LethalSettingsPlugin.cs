@@ -20,11 +20,14 @@ public class LethalSettingsPlugin : BaseUnityPlugin
         Assets.LoadAssets();
         Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly(), GeneratedPluginInfo.Identifier);
 
+        var test = Config.Bind<bool>("test", "test", true);
+
         ModMenu.RegisterMod(new ModMenu.ModSettingsConfig
         {
             Name = GeneratedPluginInfo.Name,
             Id = GeneratedPluginInfo.Identifier,
-            Description = "A centralized place for configuring mods from in-game"
+            Version = GeneratedPluginInfo.Version,
+            Description = "A centralized place for configuring mods from in-game",
         });
     }
 }

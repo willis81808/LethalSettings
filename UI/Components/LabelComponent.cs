@@ -9,8 +9,9 @@ namespace LethalSettings.UI.Components;
 public class LabelComponent : MenuComponent
 {
     public string Text { internal get; set; } = "Label Text";
-    public float FontSize { internal get; set; } = 23f;
+    public float FontSize { internal get; set; } = 16;
     public TextAlignmentOptions Alignment { internal get; set; } = TextAlignmentOptions.MidlineLeft;
+    public Action<LabelComponent> OnInitialize { get; set; } = (self) => { };
 
     public override GameObject Construct(GameObject root)
     {
@@ -28,6 +29,8 @@ internal class LabelComponentObject : MonoBehaviour
     internal GameObject Initialize(LabelComponent component)
     {
         this.component = component;
+
+        component.OnInitialize?.Invoke(component);
 
         return gameObject;
     }

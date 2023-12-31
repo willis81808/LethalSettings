@@ -11,19 +11,20 @@ public class DropdownComponent : MenuComponent
     public string Text { get; set; }
     public bool Enabled { get; set; } = true;
     public List<TMP_Dropdown.OptionData> Options { get; set; } = [];
-    public Action<DropdownComponent, TMP_Dropdown.OptionData> OnValueChange { get; set; }
+    public Action<DropdownComponent, TMP_Dropdown.OptionData> OnValueChanged { get; set; } = (self, value) => { };
+    public Action<DropdownComponent> OnInitialize { get; set; } = (self) => { };
 
     internal TMP_Dropdown.OptionData _currentValue;
-    public TMP_Dropdown.OptionData CurrentValue
+    public TMP_Dropdown.OptionData Value
     {
         get => _currentValue;
         set
         {
-            if (componentObject == null)
+            _currentValue = value;
+            if (componentObject != null)
             {
-                throw new Exception("Trying to set the value of a DropdownComponent before it has been initialized!");
+                componentObject.SetSelected(Options.IndexOf(value));
             }
-            componentObject.SetSelected(Options.IndexOf(value));
         }
     }
 
@@ -52,7 +53,17 @@ internal class DropdownComponentObject : MonoBehaviour
 
         dropdown.options = component.Options;
         dropdown.onValueChanged.AddListener(SetSelected);
-        component.CurrentValue = component.Options.First();
+
+        if (component.Value == null)
+        {
+            component.Value = component.Options.First();
+        }
+        else
+        {
+            SetSelected(component.Options.IndexOf(component.Value));
+        }
+
+        component.OnInitialize?.Invoke(component);
 
         return gameObject;
     }
@@ -61,7 +72,7 @@ internal class DropdownComponentObject : MonoBehaviour
     {
         dropdown.value = index;
         component._currentValue = dropdown.options[index];
-        component.OnValueChange?.Invoke(component, dropdown.options[index]);
+        component.OnValueChanged?.Invoke(component, dropdown.options[index]);
     }
 
     private void FixedUpdate()

@@ -10,7 +10,7 @@
     <Title>LethalSettings</Title>
     <Description>A centralized place for configuring mods from in-game</Description>
     <PluginId>com.willis.lc.lethalsettings</PluginId>
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
     <ThunderWebsiteUrl>https://github.com/willis81808/LethalSettings</ThunderWebsiteUrl>
   </PropertyGroup>
   

@@ -14,7 +14,6 @@ public class HorizontalComponent : MenuComponent
 
     public override GameObject Construct(GameObject root)
     {
-        new LabelComponent { Text = "", FontSize = 10 }.Construct(root);
         var layoutGroup = GameObject.Instantiate(Assets.HorizontalWrapper, root.transform).GetComponent<HorizontalLayoutGroup>();
         layoutGroup.spacing = Spacing;
         layoutGroup.childAlignment = ChildAlignment;
@@ -22,7 +21,6 @@ public class HorizontalComponent : MenuComponent
         {
             child.Construct(layoutGroup.gameObject);
         }
-        new LabelComponent { Text = "", FontSize = 10 }.Construct(root);
         return layoutGroup.gameObject;
     }
 }

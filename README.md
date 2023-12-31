@@ -13,8 +13,8 @@ ModMenu.RegisterMod(new ModMenu.ModSettingsConfig
     Name = "Example Mod",
     Id = "com.willis.lc.examplemod",
     Description = "This is an example mod registration showing how easy it can be to give your mod configuration a vanilla-like feel!",
-    MenuComponents =
-    [
+    MenuComponents = new MenuComponent[]
+    {
         new ButtonComponent
         {
             Text = "This is yet another test button!",
@@ -22,8 +22,8 @@ ModMenu.RegisterMod(new ModMenu.ModSettingsConfig
         },
         new HorizontalComponent
         {
-            Children =
-            [
+            Children = new MenuComponent[]
+            {
                 new SliderComponent
                 {
                     DefaultValue = 30,
@@ -37,13 +37,13 @@ ModMenu.RegisterMod(new ModMenu.ModSettingsConfig
                     Text = "Toggle me!",
                     OnValueChanged = (self, value) => Logger.LogInfo($"New value: {value}")
                 }
-            ]
+            }
         },
         new LabelComponent
         {
             Text = "Hello, World!"
         }
-    ]
+    }
 });
 ```
 

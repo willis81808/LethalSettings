@@ -12,23 +12,23 @@ public class ToggleComponent : MenuComponent
     public string Text { get; set; } = "Toggle";
     public int FontSize { get; set; } = 15;
     public bool Enabled { get; set; } = true;
-    public bool DefaultToggled { get; set; } = true;
 
     internal bool _toggled;
-    public bool Toggled
+    public bool Value
     {
         get => _toggled;
         set
         {
-            if (componentObject == null)
-            {
-                throw new Exception("Trying to set the value of a ToggleComponent before it has been initialized!");
-            }
             _toggled = value;
-            componentObject.SetToggled(value);
+            if (componentObject != null)
+            {
+                componentObject.SetToggled(value);
+            }
         }
     }
-    public Action<ToggleComponent, bool> OnValueChanged { internal get; set; }
+    public Action<ToggleComponent, bool> OnValueChanged { internal get; set; } = (self, value) => { };
+    public Action<ToggleComponent> OnInitialize { get; set; } = (self) => { };
+
 
     private ToggleComponentObject componentObject;
 
@@ -56,8 +56,9 @@ internal class ToggleComponentObject : MonoBehaviour
     {
         this.component = component;
 
-        component.Toggled = component.DefaultToggled;
-        button.onClick.AddListener(() => SetToggled(!component.Toggled));
+        button.onClick.AddListener(() => SetToggled(!component.Value));
+
+        component.OnInitialize?.Invoke(component);
 
         return gameObject;
     }
@@ -67,12 +68,12 @@ internal class ToggleComponentObject : MonoBehaviour
         button.interactable = component.Enabled;
         label.text = component.Text;
         label.fontSize = component.FontSize;
-        toggleImage.SetActive(component.Toggled);
+        toggleImage.SetActive(component.Value);
     }
 
     internal void SetToggled(bool toggled)
     {
-        component._toggled = !component.Toggled;
-        component.OnValueChanged?.Invoke(component, component.Toggled);
+        component._toggled = toggled;
+        component.OnValueChanged?.Invoke(component, toggled);
     }
 }

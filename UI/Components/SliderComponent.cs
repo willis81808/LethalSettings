@@ -15,23 +15,22 @@ public class SliderComponent : MenuComponent
     public bool Enabled { get; set;} = true;
     public float MinValue { get; set; } = 0f;
     public float MaxValue { get; set; } = 100f;
-    public float DefaultValue { get; set; } = 50f;
 
-    internal float _currentValue;
-    public float CurrentValue
+    internal float _currentValue = 50f;
+    public float Value
     {
         get => _currentValue;
         set
         {
-            if (componentObject == null)
-            {
-                throw new Exception("Trying to set the value of a SliderComponent before it has been initialized!");
-            }
             _currentValue = value;
-            componentObject.SetValue(value);
+            if (componentObject != null)
+            {
+                componentObject.SetValue(value);
+            }
         }
     }
-    public Action<SliderComponent, float> OnValueChange { internal get; set; }
+    public Action<SliderComponent, float> OnValueChanged { internal get; set; } = (self, value) => { };
+    public Action<SliderComponent> OnInitialize { get; set; } = (self) => { };
 
     private SliderComponentObject componentObject;
 
@@ -56,8 +55,9 @@ internal class SliderComponentObject : MonoBehaviour
     {
         this.component = component;
 
-        slider.value = component.CurrentValue = component.DefaultValue;
         slider.onValueChanged.AddListener(SetValue);
+
+        component.OnInitialize?.Invoke(component);
 
         return gameObject;
     }
@@ -75,6 +75,6 @@ internal class SliderComponentObject : MonoBehaviour
     {
         slider.value = value;
         component._currentValue = value;
-        component.OnValueChange?.Invoke(component, value);
+        component.OnValueChanged?.Invoke(component, value);
     }
 }

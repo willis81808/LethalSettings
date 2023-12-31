@@ -9,19 +9,20 @@ namespace LethalSettings.UI.Components;
 public class InputComponent : MenuComponent
 {
     public string Placeholder { get; set; } = "Enter text...";
-    public string DefaultValue { get; set; } = "";
-    public Action<InputComponent, string> OnValueChange { get; set; }
-    internal string _currentValue;
-    public string CurrentValue
+    public Action<InputComponent, string> OnValueChanged { get; set; } = (self, value) => { };
+    public Action<InputComponent> OnInitialize { get; set; } = (self) => { };
+
+    internal string _currentValue = "";
+    public string Value
     {
         get => _currentValue;
         set
         {
-            if (componentObject == null)
+            _currentValue = value;
+            if (componentObject != null)
             {
-                throw new Exception("Trying to set the value of a InputComponent before it has been initialized!");
+                componentObject.SetValue(value);
             }
-            componentObject.SetValue(value);
         }
     }
 
@@ -32,12 +33,21 @@ public class InputComponent : MenuComponent
         componentObject = GameObject.Instantiate(Assets.InputPrefab, root.transform);
         return componentObject.Initialize(this);
     }
+
+    public TMP_InputField GetBackingObject()
+    {
+        if (componentObject == null)
+        {
+            return null;
+        }
+        return componentObject.input;
+    }
 }
 
 internal class InputComponentObject : MonoBehaviour
 {
     [SerializeField]
-    private TMP_InputField input;
+    internal TMP_InputField input;
 
     [SerializeField]
     private TextMeshProUGUI placeholder;
@@ -48,8 +58,9 @@ internal class InputComponentObject : MonoBehaviour
     {
         this.component = component;
 
-        component.CurrentValue = component.DefaultValue;
         input.onValueChanged.AddListener(SetValue);
+
+        component.OnInitialize?.Invoke(component);
 
         return gameObject;
     }
@@ -57,12 +68,13 @@ internal class InputComponentObject : MonoBehaviour
     private void FixedUpdate()
     {
         placeholder.text = component.Placeholder;
+        input.text = component.Value;
     }
 
     internal void SetValue(string value)
     {
         input.text = value;
         component._currentValue = value;
-        component.OnValueChange?.Invoke(component, value);
+        component.OnValueChanged?.Invoke(component, value);
     }
 }

@@ -13,7 +13,8 @@ public class ButtonComponent : MenuComponent
     public string Text { internal get; set; } = "Button";
     public bool ShowCaret { internal get; set; } = true;
     public bool Enabled { get; set; } = true;
-    public Action<ButtonComponent> OnClick { internal get; set; }
+    public Action<ButtonComponent> OnClick { internal get; set; } = (self) => { };
+    public Action<ButtonComponent> OnInitialize { get; set; } = (self) => { };
 
     public override GameObject Construct(GameObject root)
     {
@@ -36,6 +37,8 @@ internal class ButtonComponentObject : MonoBehaviour
         this.component = component;
 
         button.onClick.AddListener(() => component.OnClick?.Invoke(component));
+
+        component.OnInitialize?.Invoke(component);
 
         return gameObject;
     }
