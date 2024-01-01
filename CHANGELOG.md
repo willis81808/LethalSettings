@@ -1,3 +1,7 @@
+# 1.2.2
+- Fixed the `SliderComponent` initial value defect frfr
+- Started adding documentation to significant properties on the built-in menu components
+
 # 1.2.1
 - Corrected a defect in `SliderComponent` that caused the incorrect initial value to be displayed due to an execution order issue with the initial and max value properties
 

@@ -12,6 +12,7 @@ ModMenu.RegisterMod(new ModMenu.ModSettingsConfig
 {
     Name = "Example Mod",
     Id = "com.willis.lc.examplemod",
+    Version = "0.0.1",
     Description = "This is an example mod registration showing how easy it can be to give your mod configuration a vanilla-like feel!",
     MenuComponents = new MenuComponent[]
     {
@@ -24,17 +25,17 @@ ModMenu.RegisterMod(new ModMenu.ModSettingsConfig
         {
             Children = new MenuComponent[]
             {
-                new SliderComponent
-                {
-                    DefaultValue = 30,
-                    MinValue = 10,
-                    MaxValue = 50,
-                    Text = "Example Slider",
-                    OnValueChange = (self, value) => Logger.LogInfo($"New value: {value}")
-                },
                 new ToggleComponent
                 {
                     Text = "Toggle me!",
+                    OnValueChanged = (self, value) => Logger.LogInfo($"New value: {value}")
+                },
+                new SliderComponent
+                {
+                    Value = 30,
+                    MinValue = 10,
+                    MaxValue = 50,
+                    Text = "Example Slider",
                     OnValueChanged = (self, value) => Logger.LogInfo($"New value: {value}")
                 }
             }
@@ -48,7 +49,7 @@ ModMenu.RegisterMod(new ModMenu.ModSettingsConfig
 ```
 
 This example will end up being rendered like so:
-![Example Settings Menu](https://i.imgur.com/VqVYD6I.png)
+![Example Settings Menu](https://i.imgur.com/aktZhLr.png)
 
 ## Extending LethalSettings
 
