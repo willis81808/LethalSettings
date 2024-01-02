@@ -14,9 +14,11 @@
     <ThunderWebsiteUrl>https://github.com/willis81808/LethalSettings</ThunderWebsiteUrl>
   </PropertyGroup>
   
+	<!--
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
     <Exec Command="xcopy &quot;C:\Users\Reid Willis\Documents\Unity Projects\Lethal Company Modding Environment\AssetBundles\StandaloneWindows\settings_assets&quot; &quot;%25cd%25&quot; /Y" />
   </Target>
+  -->
 
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">

@@ -8,9 +8,10 @@ namespace LethalSettings.UI.Components;
 
 public class DropdownComponent : MenuComponent
 {
+    public bool AvailableInGame { internal get; set; } = false;
     public string Text { get; set; }
     public bool Enabled { get; set; } = true;
-    public List<TMP_Dropdown.OptionData> Options { get; set; } = [];
+    public List<TMP_Dropdown.OptionData> Options { get; set; } = new List<TMP_Dropdown.OptionData>();
     public Action<DropdownComponent, TMP_Dropdown.OptionData> OnValueChanged { get; set; } = (self, value) => { };
 
     /// <summary>
@@ -46,8 +47,8 @@ public class DropdownComponent : MenuComponent
 
     private DropdownComponentObject componentObject;
 
-    public override GameObject Construct(GameObject root)
-    {
+    public override GameObject Construct(GameObject root, bool inGame) {
+        if (inGame && !AvailableInGame) return null;
         componentObject = GameObject.Instantiate(Assets.DropdownPrefab, root.transform);
         return componentObject.Initialize(this);
     }
