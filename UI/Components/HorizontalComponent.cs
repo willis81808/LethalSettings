@@ -8,7 +8,7 @@ namespace LethalSettings.UI.Components;
 
 public class HorizontalComponent : MenuComponent
 {
-    public MenuComponent[] Children { internal get; set; } = [];
+    public MenuComponent[] Children { internal get; set; } = Array.Empty<MenuComponent>();
     public int Spacing { internal get; set; } = 10;
     public TextAnchor ChildAlignment { internal get; set; } = TextAnchor.MiddleLeft;
 

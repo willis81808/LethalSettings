@@ -21,7 +21,7 @@ public class ModMenu : MonoBehaviour
         public string Id { get; set; }
         public string Description { get; set; }
         public string Version { get; set; }
-        public MenuComponent[] MenuComponents { get; set; } = [];
+        public MenuComponent[] MenuComponents { get; set; } = Array.Empty<MenuComponent>();
 
         public Action<GameObject, ReadOnlyCollection<MenuComponent>> OnMenuOpen, OnMenuClose;
 
@@ -69,34 +69,33 @@ public class ModMenu : MonoBehaviour
         mod.Viewport = new VerticalComponent
         {
             ChildAlignment = TextAnchor.UpperLeft,
-            Children = [
+            Children = new MenuComponent[] {
                 new LabelComponent { Text = "Description", FontSize = 16 },
                 new LabelComponent { Text = mod.Description, FontSize = 10 },
                 new HorizontalComponent
                 {
                     ChildAlignment = TextAnchor.MiddleRight,
-                    Children =
-                    [
+                    Children = new MenuComponent[]
+                    {
                         new VerticalComponent
                         {
-                            Children =
-                            [
+                            Children = new MenuComponent[]
+                            {
                                 new LabelComponent { Text = "Version", FontSize = 16 },
                                 new LabelComponent { Text = mod.Version, FontSize = 10 }
-                            ]
+                            }
                         },
                         new VerticalComponent
                         {
-                            Children =
-                            [
+                            Children = new MenuComponent[]
+                            {
                                 new LabelComponent { Text = "Mod ID", FontSize = 16 },
                                 new LabelComponent { Text = mod.Id, FontSize = 10 }
-                            ]
+                            }
                         }
-                    ]
-                },
-                .. mod.MenuComponents
-            ]
+                    }
+                }
+            }.AddRangeToArray(mod.MenuComponents)
         }.Construct(modSettingsScrollView.gameObject);
     }
 

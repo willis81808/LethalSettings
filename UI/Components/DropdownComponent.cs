@@ -10,7 +10,7 @@ public class DropdownComponent : MenuComponent
 {
     public string Text { get; set; }
     public bool Enabled { get; set; } = true;
-    public List<TMP_Dropdown.OptionData> Options { get; set; } = [];
+    public List<TMP_Dropdown.OptionData> Options { get; set; } = new List<TMP_Dropdown.OptionData>();
     public Action<DropdownComponent, TMP_Dropdown.OptionData> OnValueChanged { get; set; } = (self, value) => { };
 
     /// <summary>
