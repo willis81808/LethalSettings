@@ -72,8 +72,8 @@ public class ModMenu : MonoBehaviour
         {
             ChildAlignment = TextAnchor.UpperLeft,
             Children = new MenuComponent[] {
-                new LabelComponent { Text = "Description", FontSize = 16 },
-                new LabelComponent { Text = mod.Description, FontSize = 10 },
+                new LabelComponent { Text = "Description", FontSize = 16, AvaliableInGame = true },
+                new LabelComponent { Text = mod.Description, FontSize = 10, AvaliableInGame = true },
                 new HorizontalComponent
                 {
                     ChildAlignment = TextAnchor.MiddleRight,
@@ -83,16 +83,16 @@ public class ModMenu : MonoBehaviour
                         {
                             Children = new MenuComponent[]
                             {
-                                new LabelComponent { Text = "Version", FontSize = 16 },
-                                new LabelComponent { Text = mod.Version, FontSize = 10 }
+                                new LabelComponent { Text = "Version", FontSize = 16, AvaliableInGame = true },
+                                new LabelComponent { Text = mod.Version, FontSize = 10, AvaliableInGame = true }
                             }
                         },
                         new VerticalComponent
                         {
                             Children = new MenuComponent[]
                             {
-                                new LabelComponent { Text = "Mod ID", FontSize = 16 },
-                                new LabelComponent { Text = mod.Id, FontSize = 10 }
+                                new LabelComponent { Text = "Mod ID", FontSize = 16, AvaliableInGame = true },
+                                new LabelComponent { Text = mod.Id, FontSize = 10, AvaliableInGame = true }
                             }
                         }
                     }
