@@ -8,7 +8,7 @@ namespace LethalSettings.UI.Components;
 
 public class InputComponent : MenuComponent
 {
-    public bool AvaliableInGame { internal get; set; } = false;
+    public bool AvailableInGame { internal get; set; } = false;
     public string Placeholder { get; set; } = "Enter text...";
     public Action<InputComponent, string> OnValueChanged { get; set; } = (self, value) => { };
     
@@ -40,7 +40,7 @@ public class InputComponent : MenuComponent
     private InputComponentObject componentObject;
 
     public override GameObject Construct(GameObject root, bool inGame) {
-        if (inGame && !AvaliableInGame) return null;
+        if (inGame && !AvailableInGame) return null;
         componentObject = GameObject.Instantiate(Assets.InputPrefab, root.transform);
         return componentObject.Initialize(this);
     }

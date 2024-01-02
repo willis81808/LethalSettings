@@ -11,7 +11,7 @@ namespace LethalSettings.UI.Components;
 
 public class ButtonComponent : MenuComponent
 {
-    public bool AvaliableInGame { internal get; set; } = false;
+    public bool AvailableInGame { internal get; set; } = false;
     public string Text { internal get; set; } = "Button";
     public bool ShowCaret { internal get; set; } = true;
     public bool Enabled { get; set; } = true;
@@ -24,7 +24,7 @@ public class ButtonComponent : MenuComponent
 
     public override GameObject Construct(GameObject root, bool inGame)
     {
-        if (inGame && !AvaliableInGame) return null;
+        if (inGame && !AvailableInGame) return null;
         return GameObject.Instantiate(Assets.ButtonPrefab, root.transform).Initialize(this);
     }
 }
