@@ -14,6 +14,7 @@ public class ModMenu : MonoBehaviour
 
     [SerializeField]
     internal Transform modListScrollView, modSettingsScrollView;
+    internal bool inGame { set; private get; }
 
     public class ModSettingsConfig
     {
@@ -61,9 +62,10 @@ public class ModMenu : MonoBehaviour
         mod.ShowSettingsButton = new ButtonComponent
         {
             Text = mod.Name,
-            OnClick = (self) => ShowModSettings(mod)
+            OnClick = (self) => ShowModSettings(mod),
+            AvaliableInGame = true
         };
-        mod.ShowSettingsButton.Construct(modListScrollView.gameObject);
+        mod.ShowSettingsButton.Construct(modListScrollView.gameObject, inGame);
 
         // Create mod settings menu contents
         mod.Viewport = new VerticalComponent
@@ -96,7 +98,7 @@ public class ModMenu : MonoBehaviour
                     }
                 }
             }.AddRangeToArray(mod.MenuComponents)
-        }.Construct(modSettingsScrollView.gameObject);
+        }.Construct(modSettingsScrollView.gameObject, inGame);
     }
 
     private static void ShowModSettings(ModSettingsConfig activeMod)

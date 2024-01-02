@@ -9,6 +9,7 @@ namespace LethalSettings.UI.Components;
 
 public class ToggleComponent : MenuComponent
 {
+    public bool AvaliableInGame { internal get; set; } = false;
     public string Text { get; set; } = "Toggle";
     public int FontSize { get; set; } = 15;
     public bool Enabled { get; set; } = true;
@@ -39,8 +40,8 @@ public class ToggleComponent : MenuComponent
 
     private ToggleComponentObject componentObject;
 
-    public override GameObject Construct(GameObject root)
-    {
+    public override GameObject Construct(GameObject root, bool inGame) {
+        if (inGame && !AvaliableInGame) return null;
         componentObject = GameObject.Instantiate(Assets.TogglePrefab, root.transform);
         return componentObject.Initialize(this);
     }

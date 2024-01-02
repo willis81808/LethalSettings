@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Net.NetworkInformation;
 using System.Text;
 using TMPro;
 using UnityEngine;
@@ -10,6 +11,7 @@ namespace LethalSettings.UI.Components;
 
 public class ButtonComponent : MenuComponent
 {
+    public bool AvaliableInGame { internal get; set; } = false;
     public string Text { internal get; set; } = "Button";
     public bool ShowCaret { internal get; set; } = true;
     public bool Enabled { get; set; } = true;
@@ -20,8 +22,9 @@ public class ButtonComponent : MenuComponent
     /// </summary>
     public Action<ButtonComponent> OnInitialize { get; set; } = (self) => { };
 
-    public override GameObject Construct(GameObject root)
+    public override GameObject Construct(GameObject root, bool inGame)
     {
+        if (inGame && !AvaliableInGame) return null;
         return GameObject.Instantiate(Assets.ButtonPrefab, root.transform).Initialize(this);
     }
 }
@@ -38,6 +41,7 @@ internal class ButtonComponentObject : MonoBehaviour
 
     internal GameObject Initialize(ButtonComponent component)
     {
+
         this.component = component;
 
         button.onClick.AddListener(() => component.OnClick?.Invoke(component));

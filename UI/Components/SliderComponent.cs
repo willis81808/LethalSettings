@@ -9,6 +9,7 @@ namespace LethalSettings.UI.Components;
 
 public class SliderComponent : MenuComponent
 {
+    public bool AvaliableInGame { internal get; set; } = false;
     public string Text { get; set; } = "Slider";
     public bool ShowValue { get; set; } = true;
     public bool WholeNumbers {  get; set; } = true;
@@ -41,8 +42,8 @@ public class SliderComponent : MenuComponent
 
     private SliderComponentObject componentObject;
 
-    public override GameObject Construct(GameObject root)
-    {
+    public override GameObject Construct(GameObject root, bool inGame) {
+        if (inGame && !AvaliableInGame) return null;
         componentObject = GameObject.Instantiate(Assets.SliderPrefab, root.transform);
         return componentObject.Initialize(this);
     }

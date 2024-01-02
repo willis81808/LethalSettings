@@ -7,5 +7,7 @@ namespace LethalSettings.UI.Components;
 
 public abstract class MenuComponent
 {
-    public abstract GameObject Construct(GameObject root);
+
+     
+    public abstract GameObject Construct(GameObject root, bool inGame);
 }

@@ -8,6 +8,7 @@ namespace LethalSettings.UI.Components;
 
 public class LabelComponent : MenuComponent
 {
+    public bool AvaliableInGame { internal get; set; } = false;
     public string Text { internal get; set; } = "Label Text";
     public float FontSize { internal get; set; } = 16;
     public TextAlignmentOptions Alignment { internal get; set; } = TextAlignmentOptions.MidlineLeft;
@@ -17,8 +18,8 @@ public class LabelComponent : MenuComponent
     /// </summary>
     public Action<LabelComponent> OnInitialize { get; set; } = (self) => { };
 
-    public override GameObject Construct(GameObject root)
-    {
+    public override GameObject Construct(GameObject root, bool inGame) {
+        if (inGame && !AvaliableInGame) return null;
         return GameObject.Instantiate(Assets.LabelPrefab, root.transform).Initialize(this);
     }
 }
