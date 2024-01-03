@@ -10,14 +10,22 @@ namespace LethalSettings.UI;
 
 public class ModMenu : MonoBehaviour
 {
-    private static List<ModSettingsConfig> registeredMods = new List<ModSettingsConfig>();
+    private static List<ModSettingsConfig> registeredMainMenuMods = new List<ModSettingsConfig>();
+    private static List<ModSettingsConfig> registeredQuickMenuMods = new List<ModSettingsConfig>();
 
     [SerializeField]
     internal Transform modListScrollView, modSettingsScrollView;
 
+    internal bool InGame { get; set; }
+
+    private List<ModSettingsConfig> AvailableMods
+    {
+        get => InGame ? registeredQuickMenuMods : registeredMainMenuMods;
+    }
+
     public class ModSettingsConfig
     {
-        public string Name {  get; set; }
+        public string Name { get; set; }
         public string Id { get; set; }
         public string Description { get; set; }
         public string Version { get; set; }
@@ -31,12 +39,12 @@ public class ModMenu : MonoBehaviour
 
     IEnumerator Start()
     {
-        BuildMod(registeredMods.First());
-        foreach (var mod in registeredMods.Skip(1).OrderBy(m => m.Name))
+        BuildMod(AvailableMods.First());
+        foreach (var mod in AvailableMods.Skip(1).OrderBy(m => m.Name))
         {
             BuildMod(mod);
         }
-        ShowModSettings(registeredMods.First());
+        ShowModSettings(AvailableMods.First(), AvailableMods);
 
         yield return new WaitUntil(() => modSettingsScrollView.gameObject.activeInHierarchy);
         yield return LayoutFix();
@@ -61,7 +69,7 @@ public class ModMenu : MonoBehaviour
         mod.ShowSettingsButton = new ButtonComponent
         {
             Text = mod.Name,
-            OnClick = (self) => ShowModSettings(mod)
+            OnClick = (self) => ShowModSettings(mod, AvailableMods)
         };
         mod.ShowSettingsButton.Construct(modListScrollView.gameObject);
 
@@ -100,13 +108,13 @@ public class ModMenu : MonoBehaviour
         }.Construct(modSettingsScrollView.gameObject);
     }
 
-    private static void ShowModSettings(ModSettingsConfig activeMod)
+    private static void ShowModSettings(ModSettingsConfig activeMod, List<ModSettingsConfig> availableMods)
     {
-        foreach (var mod in registeredMods)
+        foreach (var mod in availableMods)
         {
             bool wasClosed = mod.Viewport.activeSelf && mod != activeMod;
             bool wasOpened = !mod.Viewport.activeSelf && mod == activeMod;
-            
+
             if (wasClosed)
                 mod.OnMenuClose?.Invoke(mod.Viewport, new ReadOnlyCollection<MenuComponent>(mod.MenuComponents));
 
@@ -120,6 +128,14 @@ public class ModMenu : MonoBehaviour
 
     public static void RegisterMod(ModSettingsConfig config)
     {
-        registeredMods.Add(config);
+        RegisterMod(config, true, false);
+    }
+
+    public static void RegisterMod(ModSettingsConfig config, bool allowedInMainMenu, bool allowedInGame)
+    {
+        if (allowedInMainMenu)
+            registeredMainMenuMods.Add(config);
+        if (allowedInGame)
+            registeredQuickMenuMods.Add(config);
     }
 }

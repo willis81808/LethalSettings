@@ -1,4 +1,5 @@
-﻿using LethalSettings.UI;
+﻿using BepInEx.Logging;
+using LethalSettings.UI;
 using LethalSettings.UI.Components;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,12 @@ public class LethalSettingsPlugin : BaseUnityPlugin
 {
     public static LethalSettingsPlugin Instance { get; private set; }
 
+    internal static ManualLogSource Log { get; private set; }
+
     public void Awake()
     {
         Instance = this;
+        Log = Logger;
         Assets.LoadAssets();
         Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly(), GeneratedPluginInfo.Identifier);
 
@@ -29,6 +33,6 @@ public class LethalSettingsPlugin : BaseUnityPlugin
             Id = GeneratedPluginInfo.Identifier,
             Version = GeneratedPluginInfo.Version,
             Description = "A centralized place for configuring mods from in-game",
-        });
+        }, true, true);
     }
 }
