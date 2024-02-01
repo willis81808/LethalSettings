@@ -1,5 +1,8 @@
 # LethalSettings
 
+[![Thunderstore Version](https://img.shields.io/thunderstore/v/willis81808/LethalSettings?style=for-the-badge&logo=thunderstore&logoColor=white)](https://thunderstore.io/c/lethal-company/p/willis81808/LethalSettings/)
+[![Thunderstore Downloads](https://img.shields.io/thunderstore/dt/willis81808/LethalSettings?style=for-the-badge&logo=thunderstore&logoColor=white)](https://thunderstore.io/c/lethal-company/p/willis81808/LethalSettings/)
+
 This utility provides a centralized framework through which other Lethal Company mods can register and display custom configuration/settings through a new "Mod Settings" button added to the existing in-game Settings menu.
 
 ## Usage
