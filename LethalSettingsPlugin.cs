@@ -24,9 +24,6 @@ public class LethalSettingsPlugin : BaseUnityPlugin
         Assets.LoadAssets();
         Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly(), GeneratedPluginInfo.Identifier);
 
-        //var test = Config.Bind<bool>("test", "test", true);
-        //var CONFIDENCE = Config.Bind<float>("test", "confidence", 59);
-
         ModMenu.RegisterMod(new ModMenu.ModSettingsConfig
         {
             Name = GeneratedPluginInfo.Name,

@@ -1,3 +1,6 @@
+# 1.4.0
+- Updated components to use a new font map generated from an extended Unicode character set
+
 # 1.2.2
 - Fixed the `SliderComponent` initial value defect frfr
 - Started adding documentation to significant properties on the built-in menu components
