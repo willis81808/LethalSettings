@@ -13,6 +13,7 @@ public class ButtonComponent : MenuComponent
     public string Text { internal get; set; } = "Button";
     public bool ShowCaret { internal get; set; } = true;
     public bool Enabled { get; set; } = true;
+    public bool Visible { get; set; } = true;
     public Action<ButtonComponent> OnClick { internal get; set; } = (self) => { };
 
     /// <summary>
@@ -49,6 +50,7 @@ internal class ButtonComponentObject : MonoBehaviour
 
     private void FixedUpdate()
     {
+        gameObject.SetActive(component.Visible);
         button.interactable = component.Enabled;
         label.text = $"{(component.ShowCaret ? "> " : "")}{component.Text}";
     }

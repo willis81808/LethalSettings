@@ -13,6 +13,7 @@ public class SliderComponent : MenuComponent
     public bool ShowValue { get; set; } = true;
     public bool WholeNumbers {  get; set; } = true;
     public bool Enabled { get; set;} = true;
+    public bool Visible { get; set; } = true;
     public float MinValue { get; set; } = 0f;
     public float MaxValue { get; set; } = 100f;
 
@@ -78,6 +79,7 @@ internal class SliderComponentObject : MonoBehaviour
 
     private void FixedUpdate()
     {
+        gameObject.SetActive(component.Visible);
         slider.wholeNumbers = component.WholeNumbers;
         slider.interactable = component.Enabled;
         slider.minValue = component.MinValue;
