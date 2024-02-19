@@ -12,6 +12,7 @@ public class ToggleComponent : MenuComponent
     public string Text { get; set; } = "Toggle";
     public int FontSize { get; set; } = 15;
     public bool Enabled { get; set; } = true;
+    public bool Visible { get; set; } = true;
 
     internal bool _toggled;
     public bool Value
@@ -72,6 +73,7 @@ internal class ToggleComponentObject : MonoBehaviour
 
     private void FixedUpdate()
     {
+        gameObject.SetActive(component.Visible);
         button.interactable = component.Enabled;
         label.text = component.Text;
         label.fontSize = component.FontSize;

@@ -10,6 +10,7 @@ public class DropdownComponent : MenuComponent
 {
     public string Text { get; set; }
     public bool Enabled { get; set; } = true;
+    public bool Visible { get; set; } = true;
     public List<TMP_Dropdown.OptionData> Options { get; set; } = [];
     public Action<DropdownComponent, TMP_Dropdown.OptionData> OnValueChanged { get; set; } = (self, value) => { };
 
@@ -97,6 +98,7 @@ internal class DropdownComponentObject : MonoBehaviour
 
     private void FixedUpdate()
     {
+        gameObject.SetActive(component.Visible);
         dropdown.interactable = component.Enabled;
         title.text = component.Text;
         if (component.Options != dropdown.options)

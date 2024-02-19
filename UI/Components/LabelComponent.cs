@@ -10,6 +10,7 @@ public class LabelComponent : MenuComponent
 {
     public string Text { internal get; set; } = "Label Text";
     public float FontSize { internal get; set; } = 16;
+    public bool Visible { get; set; } = true;
     public TextAlignmentOptions Alignment { internal get; set; } = TextAlignmentOptions.MidlineLeft;
 
     /// <summary>
@@ -41,6 +42,7 @@ internal class LabelComponentObject : MonoBehaviour
 
     private void FixedUpdate()
     {
+        gameObject.SetActive(component.Visible);
         label.text = component.Text;
         label.fontSize = component.FontSize;
         label.alignment = component.Alignment;
