@@ -17,5 +17,6 @@ internal class QuickMenuManager_Patches
         var menu = GameObject.Instantiate(Assets.ModSettingsView, settingsContainer);
         menu.InGame = true;
         menu.transform.SetSiblingIndex(menu.transform.GetSiblingIndex() - 2);
+        menu.gameObject.transform.Find("Mod Settings Panel").gameObject.SetActive(false);
     }
 }

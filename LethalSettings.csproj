@@ -10,7 +10,7 @@
     <Title>LethalSettings</Title>
     <Description>A centralized place for configuring mods from in-game</Description>
     <PluginId>com.willis.lc.lethalsettings</PluginId>
-    <Version>1.4.0</Version>
+    <Version>1.4.1</Version>
     <ThunderWebsiteUrl>https://github.com/willis81808/LethalSettings</ThunderWebsiteUrl>
     <Authors>willis81808</Authors>
     <Copyright></Copyright>
@@ -22,10 +22,6 @@
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
   </PropertyGroup>
   
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="xcopy &quot;C:\Users\Reid Willis\Documents\Unity Projects\Lethal Company Modding Environment\AssetBundles\StandaloneWindows\settings_assets&quot; &quot;%25cd%25&quot; /Y" />
-  </Target>
-
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -55,9 +51,5 @@
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(TargetDir)\LethalSettings.dll&quot; &quot;C:\Users\Reid Willis\AppData\Roaming\Thunderstore Mod Manager\DataFolder\LethalCompany\profiles\Mod Development\BepInEx\plugins&quot; /Y" />
-  </Target>
 
 </Project>

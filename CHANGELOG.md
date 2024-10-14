@@ -1,3 +1,6 @@
+# 1.4.1
+- Fixed bug where mod settings menu is opened by default the first time the game settigns are accessed
+
 # 1.4.0
 - Updated components to use a new font map generated from an extended Unicode character set
 
