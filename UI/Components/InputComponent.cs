@@ -9,6 +9,7 @@ namespace LethalSettings.UI.Components;
 public class InputComponent : MenuComponent
 {
     public string Placeholder { get; set; } = "Enter text...";
+    public bool Visible { get; set; } = true;
     public Action<InputComponent, string> OnValueChanged { get; set; } = (self, value) => { };
     
     /// <summary>
@@ -77,6 +78,7 @@ internal class InputComponentObject : MonoBehaviour
 
     private void FixedUpdate()
     {
+        gameObject.SetActive(component.Visible);
         placeholder.text = component.Placeholder;
         input.text = component.Value;
     }
